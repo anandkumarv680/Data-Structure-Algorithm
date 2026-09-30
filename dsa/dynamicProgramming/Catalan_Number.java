@@ -20,6 +20,7 @@ public class Catalan_Number {
     }
 
     public static int catalan(int n){
+        // find all possible bst with given node n ye question bhi catalan number se solve hoga
         int [] dp = new int[n + 1];
         dp[0] = 1;
         dp[1] = 1;
