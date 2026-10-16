@@ -1,0 +1,9 @@
+# Ignore compiled Java files
+*.class
+
+# VS Code settings
+.vscode/
+
+# Build output
+out/
+bin/
