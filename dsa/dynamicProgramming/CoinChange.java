@@ -1,4 +1,4 @@
-package dsa.dynamicProgramming;
+// package dsa.dynamicProgramming;
 
 public class CoinChange {
     public static int coinChange(int[] coin, int amount) {
@@ -30,7 +30,7 @@ public class CoinChange {
         return dp[n][amount];
     }
 
-    static void main(String[] args) {
+    public static void main(String[] args) {
         int[] coin = {1, 2, 5, 10, 20, 50};
         int amount = 5;
         System.out.println(coinChange(coin, amount));

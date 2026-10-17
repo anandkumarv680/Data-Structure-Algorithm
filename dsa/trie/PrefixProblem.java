@@ -1,5 +1,4 @@
 public class PrefixProblem {
-
     public static class Node{
         Node [] child = new Node[26];
         boolean eow = false;
