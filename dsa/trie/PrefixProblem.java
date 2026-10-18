@@ -1,3 +1,4 @@
+package dsa.trie;
 public class PrefixProblem {
     public static class Node{
         Node [] child = new Node[26];

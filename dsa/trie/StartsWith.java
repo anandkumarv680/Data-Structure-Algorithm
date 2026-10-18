@@ -1,3 +1,5 @@
+package dsa.trie;
+
 public class StartsWith {
 
     public static class Node {

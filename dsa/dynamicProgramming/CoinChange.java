@@ -1,4 +1,4 @@
-// package dsa.dynamicProgramming;
+package dsa.dynamicProgramming;
 
 public class CoinChange {
     public static int coinChange(int[] coin, int amount) {
