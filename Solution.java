@@ -1,42 +1,57 @@
 class Solution {
 
-    public static int findTargetSumWays(int[] nums, int target) {
-        int m = 0;
-        int n = nums.length;
-        for(int num : nums){
-            m += num;
+    public int dfs(int[][] matrix, int i, int j, int[][] dp) {
+
+        if (dp[i][j] != -1) {
+            return dp[i][j];
         }
 
-        int [][] dp = new int [n + 1][2*m + 1];
+        int[][] dir = {
+                { 0, -1 }, { 0, 1 }, { 1, 0 }, { -1, 0 }
+        };
 
-        dp[0][m] = 1;
+        int max = 1;
 
-        for(int i = 1; i <= n; i++){
-            for(int j = 0; j <= 2*m; j++){
-                if(dp[i - 1][j] != 0){
-                    dp[i][j + nums[i - 1]] += dp[i - 1][j];
-                    dp[i][j - nums[i - 1]] += dp[i - 1][j];
-                }
+        for (int[] d : dir) {
+            int newi = i + d[0];
+            int newj = j + d[1];
+
+            if (newi < 0 || newj < 0 ||
+                    newi >= matrix.length ||
+                    newj >= matrix[0].length) {
+                continue;
+            }
+
+            if (matrix[newi][newj] > matrix[i][j]) {
+
+                int length = 1 + dfs(matrix, newi, newj, dp);
+
+                max = Math.max(max, length);
             }
         }
 
-        return dp[n][m + target];
-
-        // for(int i = 0; i <= n; i++){
-        //     for(int j = 0; j <= 2*m; j++){
-        //         System.out.print(dp[i][j] + " ");
-        //     }
-        //     System.out.println();
-        // }
-
-        
-
+        return dp[i][j] = max;
     }
 
-    public static void main(String[] args) {
-        int [] arr = {1,1,1};
-        int target = 3;
+    public int longestIncreasingPath(int[][] matrix) {
 
-        System.out.println(findTargetSumWays(arr, target));;
+        int m = matrix.length;
+        int n = matrix[0].length;
+
+        int[][] dp = new int[m][n];
+
+        for (int[] row : dp) {
+            Arrays.fill(row, -1);
+        }
+
+        int ans = 1;
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                ans = Math.max(ans, dfs(matrix, i, j, dp));
+            }
+        }
+
+        return ans;
     }
 }
