@@ -1,57 +1,42 @@
 class Solution {
+    public static int numDistinct(String s, String t) {
 
-    public int dfs(int[][] matrix, int i, int j, int[][] dp) {
+        int m = s.length();
+        int n = t.length();
 
-        if (dp[i][j] != -1) {
-            return dp[i][j];
+        int[][] dp = new int[m + 1][n + 1];
+
+        for (int j = 0; j <= n; j++) {
+            dp[0][j] = 0;
         }
 
-        int[][] dir = {
-                { 0, -1 }, { 0, 1 }, { 1, 0 }, { -1, 0 }
-        };
+        for (int i = 0; i <= m; i++) {
+            dp[i][0] = 1;
+        }
 
-        int max = 1;
-
-        for (int[] d : dir) {
-            int newi = i + d[0];
-            int newj = j + d[1];
-
-            if (newi < 0 || newj < 0 ||
-                    newi >= matrix.length ||
-                    newj >= matrix[0].length) {
-                continue;
-            }
-
-            if (matrix[newi][newj] > matrix[i][j]) {
-
-                int length = 1 + dfs(matrix, newi, newj, dp);
-
-                max = Math.max(max, length);
+        for (int i = 1; i <= m; i++) {
+            for (int j = 1; j <= n; j++) {
+                if (s.charAt(i - 1) == t.charAt(j - 1)) {
+                    
+                    dp[i][j] = dp[i - 1][j - 1] + dp[i - 1][j];
+                } else {
+                    dp[i][j] = dp[i - 1][j];
+                }
             }
         }
 
-        return dp[i][j] = max;
+        for (int i = 0; i <= m; i++) {
+            for (int j = 0; j <= n; j++) {
+                System.out.print(dp[i][j] + " ");
+            }
+            System.out.println();
+        }
+
+        return dp[m][n];
+
     }
 
-    public int longestIncreasingPath(int[][] matrix) {
-
-        int m = matrix.length;
-        int n = matrix[0].length;
-
-        int[][] dp = new int[m][n];
-
-        for (int[] row : dp) {
-            Arrays.fill(row, -1);
-        }
-
-        int ans = 1;
-
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                ans = Math.max(ans, dfs(matrix, i, j, dp));
-            }
-        }
-
-        return ans;
+    public static void main(String[] args) {
+        System.out.println(numDistinct("rabbbit", "rabbit"));
     }
 }
