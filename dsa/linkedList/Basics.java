@@ -65,7 +65,8 @@ public class Basics {
         ll.addFirst(1);
         ll.addLast(5);
         ll.addLast(4);
-        ll.add(99,2);
+        ll.add(99,0);
+        ll.addFirst(99);
         ll.print(head);
     }
 }
